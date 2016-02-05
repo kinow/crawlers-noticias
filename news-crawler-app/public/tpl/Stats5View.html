@@ -1,0 +1,23 @@
+<table class='table table-bordered table-striped'>
+  <caption>Not&iacute;cias por dia nos jornais</caption>
+  <thead>
+    <tr>
+      <th>Dia</th>
+      <% for (journal in journals) { %>
+      <th><%= journals[journal] %></th>
+      <% } %>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (day in days) { %>
+      <tr>
+        <td>
+          <%= day %>
+        </td>
+        <% for (journal in journals) { %>
+        <td><%= days[day][journals[journal]]['total'] %></td>
+        <% } %>
+      </tr>
+      <% } %>
+</tbody>
+</table>

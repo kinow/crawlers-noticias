@@ -1,0 +1,127 @@
+<style>
+.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+.node circle {
+  fill: #ccc;
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+text {
+  font: 10px sans-serif;
+  pointer-events: none;
+}
+</style>
+<table class='table table-bordered table-striped'>
+<caption>Jornais relacionados</caption>
+</table>
+<div id="stats4"></div>
+<script>
+(function(d3) {
+    'use strict';
+
+    $("#stats4").empty();
+
+	var links = [];
+	<% for (entry in list) { %>
+		var link = new Object();
+		link.source = '<%= list[entry].attributes['n1.journal'] %>';
+		link.target = '<%= list[entry].attributes['n2.journal'] %>';
+		link.total = '<%= list[entry].attributes['total'] %>';
+		links.push(link);
+	<% } %>
+
+	//var nodes = {};
+
+	// Compute the distinct nodes from the links.
+	// links.forEach(function(link) {
+	//   link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+	//   link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
+	// });
+
+	var nodes = {};
+	links.forEach(function(link) {
+	  link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+	  link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
+	});
+
+	//Constants for the SVG
+	var width = 400,
+	    height = 350;
+
+	var force = d3.layout.force()
+	    .nodes(d3.values(nodes))
+	    .links(links)
+	    .size([width, height])
+	    .linkDistance(200)
+	    .charge(-300)
+	    .on("tick", tick)
+	    .start();
+
+	var svg = d3.select("#stats4").append("svg")
+	    .attr("width", width)
+	    .attr("height", height);
+
+	var link = svg.selectAll(".link")
+	    .data(force.links())
+	  .enter().append("line")
+	    .attr("class", "link");
+
+	var linktext = svg.selectAll("g.linklabelholder").data(links);
+	    linktext.enter().append("g").attr("class", "linklabelholder")
+	     .append("text")
+	     .attr("class", "linklabel")
+	     .attr("dx", 1)
+	     .attr("dy", ".35em")
+	     .attr("text-anchor", "middle")
+	     .text(function(d) { return d.total });
+
+	var node = svg.selectAll(".node")
+	    .data(force.nodes())
+	  .enter().append("g")
+	    .attr("class", "node")
+	    .on("mouseover", mouseover)
+	    .on("mouseout", mouseout)
+	    .call(force.drag);
+
+	node.append("circle")
+	    .attr("r", 8);
+
+	node.append("text")
+	    .attr("x", 12)
+	    .attr("dy", ".35em")
+	    .text(function(d) { return d.name; });
+
+	function tick() {
+	  link
+	      .attr("x1", function(d) { return d.source.x; })
+	      .attr("y1", function(d) { return d.source.y; })
+	      .attr("x2", function(d) { return d.target.x; })
+	      .attr("y2", function(d) { return d.target.y; });
+
+	  // link label
+	  linktext.attr("transform", function(d) {
+	      return "translate(" + (d.source.x + d.target.x) / 2 + "," 
+	      + (d.source.y + d.target.y) / 2 + ")"; });
+
+	  node
+	      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+	}
+
+	function mouseover() {
+	  d3.select(this).select("circle").transition()
+	      .duration(750)
+	      .attr("r", 16);
+	}
+
+	function mouseout() {
+	  d3.select(this).select("circle").transition()
+	      .duration(750)
+	      .attr("r", 8);
+	}
+  })(window.d3);
+</script>

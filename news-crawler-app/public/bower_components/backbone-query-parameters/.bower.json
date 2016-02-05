@@ -1,0 +1,20 @@
+{
+  "name": "backbone-query-parameters",
+  "version": "0.4.0",
+  "main": "backbone.queryparams.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jhudson8/backbone-query-parameters.git"
+  },
+  "homepage": "https://github.com/jhudson8/backbone-query-parameters",
+  "_release": "0.4.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.4.0",
+    "commit": "9347032699d72696f27c101ee2260c0997d208d8"
+  },
+  "_source": "git://github.com/jhudson8/backbone-query-parameters.git",
+  "_target": "~0.4.0",
+  "_originalSource": "backbone-query-parameters",
+  "_direct": true
+}

@@ -1,0 +1,11 @@
+{
+  "name": "news-crawler-app",
+  "description": "News Crawler Application",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.x",
+    "neo4j": "~1.1.1",
+    "nice-json2csv": "0.2.0"
+  }
+}

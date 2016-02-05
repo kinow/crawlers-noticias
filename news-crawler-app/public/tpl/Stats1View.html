@@ -1,0 +1,22 @@
+<table class='table table-bordered table-striped'>
+  <caption>Not&iacute;cias nos (<%- list.length %>) jornais</caption>
+  <thead>
+    <tr>
+      <th>Jornal</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (entry in list) { %>
+      <tr>
+        <td>
+          <%= list[entry].attributes['n1.journal'] %>
+        </td>
+        <td>
+          <%= list[entry].attributes['total'] %>
+        </td>
+      </tr>
+      <% } %>
+</table>
+</tbody>
+</table>
