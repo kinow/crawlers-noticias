@@ -6,7 +6,7 @@ log() {
 
 DIR=$(pwd -P)
 INDEX_DB=lucene_db
-JSON_INPUT=json_input
+JSON_INPUT=data
 
 if [ -f $DIR/relationships.csv ];
 then
