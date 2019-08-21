@@ -8,7 +8,7 @@ from os.path import isfile, join
 import lucene
 import nltk
 import sys
-from java.io import File
+from java.nio.file import Paths
 from org.apache.lucene.analysis.core import KeywordAnalyzer
 from org.apache.lucene.index import DirectoryReader
 from org.apache.lucene.queryparser.classic import QueryParser
@@ -45,7 +45,7 @@ def main(index_dir, input_dir):
 
     # Open index
     logger.info("Opening Lucene index [%s]..." % index_dir)
-    dir = SimpleFSDirectory(File(index_dir))
+    dir = SimpleFSDirectory(Paths.get(index_dir))
     analyzer = KeywordAnalyzer(Version.LUCENE_CURRENT)
     reader = DirectoryReader.open(dir)
     searcher = IndexSearcher(reader)
