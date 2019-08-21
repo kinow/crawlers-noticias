@@ -57,6 +57,9 @@ DELETE n,r
 O script index.sh produz um arquivo CSV all.csv, que possui o grafo com nos e atributos. E necessario
 tambem criar um indice na URL, caso contrario as queries demorarao varios minutos.
 
+(Primeiro, remova a configuracao do Neo4j que impede o carregamento de CSVs
+de qualquer diretorio)
+
 ```
 LOAD CSV FROM 'file:///$PATH_TO_PROJECT/all.csv' AS line 
 CREATE(:News { journal: line[0], date: line[1], url: line[2], title: line[3]})
