@@ -1,10 +1,22 @@
 #!/usr/bin/env python
 
-# system, IO and logging
-import sys
+import csv
+import json
+import logging
 from os import listdir
 from os.path import isfile, join
-import logging
+
+import lucene
+import sys
+from java.nio.file import Paths
+from org.apache.lucene.analysis import CharArraySet
+from org.apache.lucene.analysis.standard import StandardAnalyzer
+from org.apache.lucene.document import Document, StringField
+from org.apache.lucene.index import DirectoryReader
+from org.apache.lucene.index import IndexWriter
+from org.apache.lucene.index import IndexWriterConfig
+from org.apache.lucene.store import SimpleFSDirectory
+
 # create logger
 logger = logging.getLogger('index_news')
 logger.setLevel(logging.DEBUG)
@@ -18,23 +30,8 @@ ch.setFormatter(formatter)
 # add ch to logger
 logger.addHandler(ch)
 
-# Lucene
-import lucene
 lucene.initVM(lucene.CLASSPATH)
-from java.nio.file import Paths
-from org.apache.lucene.index import DirectoryReader
-from org.apache.lucene.index import IndexWriter
-from org.apache.lucene.index import IndexWriterConfig
-from org.apache.lucene.document import Document, StringField, FieldType
-from org.apache.lucene.analysis import CharArraySet
-from org.apache.lucene.analysis.standard import StandardAnalyzer
-from org.apache.lucene.store import SimpleFSDirectory
 
-# JSON
-import json
-
-# CSV
-import csv
 
 def main(index_dir, input_dir):
     """Creates a Lucene Index, and indexes every .json file it finds.
@@ -66,7 +63,7 @@ def main(index_dir, input_dir):
     logger.info("Currently there are %d documents in the index..." % writer.numDocs())
 
     # Index documents
-    onlyfiles = [ f for f in listdir(input_dir) if isfile(join(input_dir, f)) and f.endswith('.json') ]
+    onlyfiles = [f for f in listdir(input_dir) if isfile(join(input_dir, f)) and f.endswith('.json')]
     for f in onlyfiles:
         try:
             journal_code = f.split('.')[0]
@@ -91,9 +88,9 @@ def main(index_dir, input_dir):
     logger.info("Indexed lines from stdin (%d documents in index)" % writer.numDocs())
 
     # Wrap it up
-    #logger.info("About to optimize index of %d documents..." % writer.numDocs())
-    #writer.optimize()
-    #logger.info("...done optimizing index of %d documents" % writer.numDocs())
+    # logger.info("About to optimize index of %d documents..." % writer.numDocs())
+    # writer.optimize()
+    # logger.info("...done optimizing index of %d documents" % writer.numDocs())
 
     logger.info("Closing index of %d documents..." % writer.numDocs())
     writer.close()
@@ -104,7 +101,8 @@ def main(index_dir, input_dir):
         for i in range(0, reader.numDocs()):
             doc = reader.document(i)
             csvwriter.writerow([doc.get('journal'), doc.get('date'), doc.get('url').encode('utf8'),
-                doc.get('title').strip().replace(',', '\,').encode('utf8')])
+                                doc.get('title').strip().replace(',', '\,').encode('utf8')])
+
 
 if __name__ == '__main__':
     if len(sys.argv) < 3:
