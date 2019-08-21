@@ -97,7 +97,7 @@ def main(indexDir, inputDir):
 
 if __name__ == '__main__':
 	if len(sys.argv) < 3:
-		print 'Usage: relationships.py <index_dir> <input_dir>'
+		print('Usage: relationships.py <index_dir> <input_dir>')
 		sys.exit(2)
 	indexDir = sys.argv[1]
 	inputDir = sys.argv[2]
