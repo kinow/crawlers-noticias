@@ -25,8 +25,7 @@ from java.nio.file import Paths
 from org.apache.lucene.index import IndexReader
 from org.apache.lucene.index import IndexWriter
 from org.apache.lucene.index import IndexWriterConfig
-from org.apache.lucene.document import Document, Field, FieldType
-from org.apache.lucene.util import Version
+from org.apache.lucene.document import Document, IndexableField, FieldType
 from org.apache.lucene.analysis import CharArraySet
 from org.apache.lucene.analysis.standard import StandardAnalyzer
 from org.apache.lucene.store import SimpleFSDirectory
@@ -61,7 +60,7 @@ def main(indexDir, inputDir):
 
     dir = SimpleFSDirectory(Paths.get(indexDir))
     analyzer = StandardAnalyzer(stopwords)
-    writerConfig = IndexWriterConfig(Version.LUCENE_CURRENT, analyzer)
+    writerConfig = IndexWriterConfig(analyzer)
     writer = IndexWriter(dir, writerConfig)
 
     logger.info("Currently there are %d documents in the index..." % writer.numDocs())
