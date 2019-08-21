@@ -28,7 +28,7 @@ from org.apache.lucene.index import IndexWriterConfig
 from org.apache.lucene.document import Document, Field, FieldType
 from org.apache.lucene.util import Version
 from org.apache.lucene.analysis import CharArraySet
-from org.apache.lucene.analysis.core import StopAnalyzer
+from org.apache.lucene.analysis.standard import StandardAnalyzer
 from org.apache.lucene.store import SimpleFSDirectory
 
 # JSON
@@ -60,7 +60,7 @@ def main(indexDir, inputDir):
     logger.info("Creating Lucene index [%s]..." % indexDir)
 
     dir = SimpleFSDirectory(Paths.get(indexDir))
-    analyzer = StopAnalyzer(Version.LUCENE_CURRENT, stopwords)
+    analyzer = StandardAnalyzer(stopwords)
     writerConfig = IndexWriterConfig(Version.LUCENE_CURRENT, analyzer)
     writer = IndexWriter(dir, writerConfig)
 
