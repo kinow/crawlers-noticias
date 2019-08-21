@@ -45,9 +45,9 @@ def main(index_dir, input_dir):
 
     # Open index
     logger.info("Opening Lucene index [%s]..." % index_dir)
-    dir = SimpleFSDirectory(Paths.get(index_dir))
-    analyzer = KeywordAnalyzer(Version.LUCENE_CURRENT)
-    reader = DirectoryReader.open(dir)
+    fs_dir = SimpleFSDirectory(Paths.get(index_dir))
+    analyzer = KeywordAnalyzer()
+    reader = DirectoryReader.open(fs_dir)
     searcher = IndexSearcher(reader)
 
     # Search documents
