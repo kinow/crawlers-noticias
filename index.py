@@ -22,7 +22,7 @@ logger.addHandler(ch)
 import lucene
 lucene.initVM(lucene.CLASSPATH)
 from java.nio.file import Paths
-from org.apache.lucene.index import IndexReader
+from org.apache.lucene.index import DirectoryReader
 from org.apache.lucene.index import IndexWriter
 from org.apache.lucene.index import IndexWriterConfig
 from org.apache.lucene.document import Document, StringField, FieldType
@@ -98,7 +98,7 @@ def main(indexDir, inputDir):
     logger.info("Closing index of %d documents..." % writer.numDocs())
     writer.close()
 
-    reader = IndexReader.open(dir)
+    reader = DirectoryReader.open(dir)
     with open('all.csv', 'wb') as csvfile:
         csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         for i in range(0, reader.numDocs()):
