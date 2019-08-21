@@ -21,7 +21,7 @@ logger.addHandler(ch)
 # Lucene
 import lucene
 lucene.initVM(lucene.CLASSPATH)
-from java.io import File
+from java.nio.file import Paths
 from org.apache.lucene.index import IndexReader
 from org.apache.lucene.index import IndexWriter
 from org.apache.lucene.index import IndexWriterConfig
@@ -59,7 +59,7 @@ def main(indexDir, inputDir):
     # Create index
     logger.info("Creating Lucene index [%s]..." % indexDir)
 
-    dir = SimpleFSDirectory(File(indexDir))
+    dir = SimpleFSDirectory(Paths.get(indexDir))
     analyzer = StopAnalyzer(Version.LUCENE_CURRENT, stopwords)
     writerConfig = IndexWriterConfig(Version.LUCENE_CURRENT, analyzer)
     writer = IndexWriter(dir, writerConfig)
