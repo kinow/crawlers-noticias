@@ -90,7 +90,7 @@ def main(indexDir, inputDir):
 					rels.append({'left': url, 'token': token, 'right': doc.get('url')})
 		json_data.close()
 
-	with open('relationships.csv', 'wb') as csvfile:
+	with open('relationships.csv', 'w') as csvfile:
 		csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
 		for rel in rels:
 			csvwriter.writerow([rel['left'].encode('utf8'), rel['token'].encode('utf8'), rel['right'].encode('utf8')])
