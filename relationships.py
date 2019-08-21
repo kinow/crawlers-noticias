@@ -43,23 +43,23 @@ import csv
 # Lucene Max Hits per search
 MAX_HITS = 10000
 
-def main(indexDir, inputDir):
+def main(index_dir, input_dir):
 	"""Creates a SQLite database with news linked to other news by at least one term, backed by a Lucene Index"""
 	lucene.initVM()
 
 	# Open index
-	logger.info("Opening Lucene index [%s]..." % indexDir)
-	dir = SimpleFSDirectory(File(indexDir))
+	logger.info("Opening Lucene index [%s]..." % index_dir)
+	dir = SimpleFSDirectory(File(index_dir))
 	analyzer = KeywordAnalyzer(Version.LUCENE_CURRENT)
 	reader = DirectoryReader.open(dir)
 	searcher = IndexSearcher(reader)
 
 	# Search documents
-	onlyfiles = [ f for f in listdir(inputDir) if isfile(join(inputDir, f)) and f.endswith('.json') ]
+	onlyfiles = [f for f in listdir(input_dir) if isfile(join(input_dir, f)) and f.endswith('.json')]
 	rels = list()
 	for f in onlyfiles:
 		journal_code = f.split('.')[0]
-		f = join(inputDir, f)
+		f = join(input_dir, f)
 		json_data = open(f)
 		data = json.load(json_data)
 		# The results collected after comparison
@@ -99,6 +99,6 @@ if __name__ == '__main__':
 	if len(sys.argv) < 3:
 		print('Usage: relationships.py <index_dir> <input_dir>')
 		sys.exit(2)
-	indexDir = sys.argv[1]
-	inputDir = sys.argv[2]
-	main(indexDir, inputDir)
+	index_dir = sys.argv[1]
+	input_dir = sys.argv[2]
+	main(index_dir=index_dir, input_dir=input_dir)
