@@ -75,7 +75,7 @@ def main(index_dir, input_dir):
             for token in tokens:
                 q = 'title: "%s" AND date: "%s" AND NOT journal: "%s" AND NOT url: "%s"' % (
                     token, date, journal_code, url)
-                query = QueryParser(Version.LUCENE_CURRENT, "title", analyzer).parse(q)
+                query = QueryParser("title", analyzer).parse(QueryParser.escape(q))
                 hits = searcher.search(query, MAX_HITS)
 
                 logger.debug("Found %d document(s) that matched query '%s':" % (hits.totalHits, q))
