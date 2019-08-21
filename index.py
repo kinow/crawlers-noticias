@@ -95,7 +95,7 @@ def main(index_dir, input_dir):
     logger.info("Closing index of %d documents..." % writer.numDocs())
     writer.close()
 
-    reader = DirectoryReader.open(dir)
+    reader = DirectoryReader.open(fs_dir)
     with open('all.csv', 'w') as csvfile:
         csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         for i in range(0, reader.numDocs()):
