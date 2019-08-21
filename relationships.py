@@ -1,10 +1,25 @@
 #!/usr/bin/env python
 
-# system, IO and logging
-import sys
+# JSON
+import json
+import logging
 from os import listdir
 from os.path import isfile, join
-import logging
+
+# Lucene
+import lucene
+# NLTK
+import nltk
+# system, IO and logging
+import sys
+from java.io import File
+from org.apache.lucene.analysis.core import KeywordAnalyzer
+from org.apache.lucene.index import DirectoryReader
+from org.apache.lucene.queryparser.classic import QueryParser
+from org.apache.lucene.search import IndexSearcher
+from org.apache.lucene.store import SimpleFSDirectory
+from org.apache.lucene.util import Version
+
 # create logger
 logger = logging.getLogger('compare_news')
 logger.setLevel(logging.INFO)
@@ -18,22 +33,7 @@ ch.setFormatter(formatter)
 # add ch to logger
 logger.addHandler(ch)
 
-# Lucene
-import lucene
 lucene.initVM(lucene.CLASSPATH)
-from java.io import File
-from org.apache.lucene.util import Version
-from org.apache.lucene.store import SimpleFSDirectory
-from org.apache.lucene.queryparser.classic import QueryParser
-from org.apache.lucene.search import IndexSearcher
-from org.apache.lucene.index import DirectoryReader
-from org.apache.lucene.analysis.core import KeywordAnalyzer
-
-# JSON
-import json
-
-# NLTK
-import nltk
 nltk.data.path.append("/home/kinow/Development/python/nltk_data")
 
 # CSV
@@ -42,62 +42,65 @@ import csv
 # Lucene Max Hits per search
 MAX_HITS = 10000
 
+
 def main(index_dir, input_dir):
-	"""Creates a SQLite database with news linked to other news by at least one term, backed by a Lucene Index"""
-	lucene.initVM()
+    """Creates a SQLite database with news linked to other news by at least one term, backed by a Lucene Index"""
+    lucene.initVM()
 
-	# Open index
-	logger.info("Opening Lucene index [%s]..." % index_dir)
-	dir = SimpleFSDirectory(File(index_dir))
-	analyzer = KeywordAnalyzer(Version.LUCENE_CURRENT)
-	reader = DirectoryReader.open(dir)
-	searcher = IndexSearcher(reader)
+    # Open index
+    logger.info("Opening Lucene index [%s]..." % index_dir)
+    dir = SimpleFSDirectory(File(index_dir))
+    analyzer = KeywordAnalyzer(Version.LUCENE_CURRENT)
+    reader = DirectoryReader.open(dir)
+    searcher = IndexSearcher(reader)
 
-	# Search documents
-	onlyfiles = [f for f in listdir(input_dir) if isfile(join(input_dir, f)) and f.endswith('.json')]
-	rels = list()
-	for f in onlyfiles:
-		journal_code = f.split('.')[0]
-		f = join(input_dir, f)
-		json_data = open(f)
-		data = json.load(json_data)
-		# The results collected after comparison
+    # Search documents
+    onlyfiles = [f for f in listdir(input_dir) if isfile(join(input_dir, f)) and f.endswith('.json')]
+    rels = list()
+    for f in onlyfiles:
+        journal_code = f.split('.')[0]
+        f = join(input_dir, f)
+        json_data = open(f)
+        data = json.load(json_data)
+        # The results collected after comparison
 
-		for entry in data:
-			url = entry['url']
-			date = entry['date']
-			title = entry['title']
+        for entry in data:
+            url = entry['url']
+            date = entry['date']
+            title = entry['title']
 
-			logger.debug("Processing URL [%s] date [%s] - [%s]" % (url, date, title))
+            logger.debug("Processing URL [%s] date [%s] - [%s]" % (url, date, title))
 
-			tt = nltk.word_tokenize(title)
-			tokens = []
-			for t in tt:
-				tokens.append(t.lower())
+            tt = nltk.word_tokenize(title)
+            tokens = []
+            for t in tt:
+                tokens.append(t.lower())
 
-			for token in tokens:
-				q = 'title: "%s" AND date: "%s" AND NOT journal: "%s" AND NOT url: "%s"' % (token, date, journal_code, url)
-				query = QueryParser(Version.LUCENE_CURRENT, "title", analyzer).parse(q)
-				hits = searcher.search(query, MAX_HITS)
+            for token in tokens:
+                q = 'title: "%s" AND date: "%s" AND NOT journal: "%s" AND NOT url: "%s"' % (
+                token, date, journal_code, url)
+                query = QueryParser(Version.LUCENE_CURRENT, "title", analyzer).parse(q)
+                hits = searcher.search(query, MAX_HITS)
 
-				logger.debug("Found %d document(s) that matched query '%s':" % (hits.totalHits, q))
+                logger.debug("Found %d document(s) that matched query '%s':" % (hits.totalHits, q))
 
-				for hit in hits.scoreDocs:
-					doc = searcher.doc(hit.doc)
-					logger.debug(doc)
+                for hit in hits.scoreDocs:
+                    doc = searcher.doc(hit.doc)
+                    logger.debug(doc)
 
-					rels.append({'left': url, 'token': token, 'right': doc.get('url')})
-		json_data.close()
+                    rels.append({'left': url, 'token': token, 'right': doc.get('url')})
+        json_data.close()
 
-	with open('relationships.csv', 'w') as csvfile:
-		csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
-		for rel in rels:
-			csvwriter.writerow([rel['left'].encode('utf8'), rel['token'].encode('utf8'), rel['right'].encode('utf8')])
+    with open('relationships.csv', 'w') as csvfile:
+        csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+        for rel in rels:
+            csvwriter.writerow([rel['left'].encode('utf8'), rel['token'].encode('utf8'), rel['right'].encode('utf8')])
+
 
 if __name__ == '__main__':
-	if len(sys.argv) < 3:
-		print('Usage: relationships.py <index_dir> <input_dir>')
-		sys.exit(2)
-	index_dir = sys.argv[1]
-	input_dir = sys.argv[2]
-	main(index_dir=index_dir, input_dir=input_dir)
+    if len(sys.argv) < 3:
+        print('Usage: relationships.py <index_dir> <input_dir>')
+        sys.exit(2)
+    index_dir = sys.argv[1]
+    input_dir = sys.argv[2]
+    main(index_dir=index_dir, input_dir=input_dir)
