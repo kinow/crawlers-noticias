@@ -99,7 +99,7 @@ def main(indexDir, inputDir):
     writer.close()
 
     reader = DirectoryReader.open(dir)
-    with open('all.csv', 'wb') as csvfile:
+    with open('all.csv', 'w') as csvfile:
         csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         for i in range(0, reader.numDocs()):
             doc = reader.document(i)
