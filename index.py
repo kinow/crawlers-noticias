@@ -27,7 +27,7 @@ from org.apache.lucene.index import IndexWriter
 from org.apache.lucene.index import IndexWriterConfig
 from org.apache.lucene.document import Document, Field, FieldType
 from org.apache.lucene.util import Version
-from org.apache.lucene.analysis.util import CharArraySet
+from org.apache.lucene.analysis import CharArraySet
 from org.apache.lucene.analysis.core import StopAnalyzer
 from org.apache.lucene.store import SimpleFSDirectory
 
@@ -52,7 +52,7 @@ def main(indexDir, inputDir):
 		stopwords.add(line.strip())
 	f.close()
 	logger.debug('Stop words: %s' % str(stopwords))
-	temp = CharArraySet(Version.LUCENE_CURRENT, 1, True)
+	temp = CharArraySet(1, True)
 
 	for stopword in stopwords:
 		temp.add(stopword)
