@@ -55,10 +55,10 @@ def main(index_dir, input_dir):
     # Create index
     logger.info("Creating Lucene index [%s]..." % index_dir)
 
-    dir = SimpleFSDirectory(Paths.get(index_dir))
+    fs_dir = SimpleFSDirectory(Paths.get(index_dir))
     analyzer = StandardAnalyzer(stopwords)
     writerConfig = IndexWriterConfig(analyzer)
-    writer = IndexWriter(dir, writerConfig)
+    writer = IndexWriter(fs_dir, writerConfig)
 
     logger.info("Currently there are %d documents in the index..." % writer.numDocs())
 
