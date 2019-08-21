@@ -22,7 +22,6 @@ logger.addHandler(ch)
 import lucene
 lucene.initVM(lucene.CLASSPATH)
 from java.io import File
-from org.apache.lucene.document import Document, Field
 from org.apache.lucene.util import Version
 from org.apache.lucene.store import SimpleFSDirectory
 from org.apache.lucene.queryparser.classic import QueryParser
