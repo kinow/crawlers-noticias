@@ -36,7 +36,7 @@ import json
 # CSV
 import csv
 
-def main(indexDir, inputDir):
+def main(index_dir, input_dir):
     """Creates a Lucene Index, and indexes every .json file it finds.
     It utilizes a stopwords.txt to filter out stop words"""
     lucene.initVM()
@@ -56,9 +56,9 @@ def main(indexDir, inputDir):
     stopwords = temp
 
     # Create index
-    logger.info("Creating Lucene index [%s]..." % indexDir)
+    logger.info("Creating Lucene index [%s]..." % index_dir)
 
-    dir = SimpleFSDirectory(Paths.get(indexDir))
+    dir = SimpleFSDirectory(Paths.get(index_dir))
     analyzer = StandardAnalyzer(stopwords)
     writerConfig = IndexWriterConfig(analyzer)
     writer = IndexWriter(dir, writerConfig)
@@ -66,11 +66,11 @@ def main(indexDir, inputDir):
     logger.info("Currently there are %d documents in the index..." % writer.numDocs())
 
     # Index documents
-    onlyfiles = [ f for f in listdir(inputDir) if isfile(join(inputDir, f)) and f.endswith('.json') ]
+    onlyfiles = [ f for f in listdir(input_dir) if isfile(join(input_dir, f)) and f.endswith('.json') ]
     for f in onlyfiles:
         try:
             journal_code = f.split('.')[0]
-            f = join(inputDir, f)
+            f = join(input_dir, f)
             json_data = open(f)
             data = json.load(json_data)
             for entry in data:
@@ -110,6 +110,6 @@ if __name__ == '__main__':
     if len(sys.argv) < 3:
         print('Usage: index.py <index_dir> <input_dir>')
         sys.exit(2)
-    indexDir = sys.argv[1]
-    inputDir = sys.argv[2]
-    main(indexDir, inputDir)
+    index_dir = sys.argv[1]
+    input_dir = sys.argv[2]
+    main(index_dir=index_dir, input_dir=input_dir)
