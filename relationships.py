@@ -90,7 +90,7 @@ def main(index_dir, input_dir):
     with open('relationships.csv', 'w') as csvfile:
         csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         for rel in rels:
-            csvwriter.writerow([rel['left'].encode('utf8'), rel['token'].encode('utf8'), rel['right'].encode('utf8')])
+            csvwriter.writerow([rel['left'], rel['token'], rel['right']])
 
 
 if __name__ == '__main__':

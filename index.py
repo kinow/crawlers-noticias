@@ -100,8 +100,8 @@ def main(index_dir, input_dir):
         csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         for i in range(0, reader.numDocs()):
             doc = reader.document(i)
-            csvwriter.writerow([doc.get('journal'), doc.get('date'), doc.get('url').encode('utf8'),
-                                doc.get('title').strip().replace(',', '\,').encode('utf8')])
+            csvwriter.writerow([doc.get('journal'), doc.get('date'), doc.get('url'),
+                                doc.get('title').strip().replace(',', '\,')])
 
 
 if __name__ == '__main__':
