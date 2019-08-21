@@ -1,16 +1,12 @@
 #!/usr/bin/env python
 
-# JSON
 import json
 import logging
 from os import listdir
 from os.path import isfile, join
 
-# Lucene
 import lucene
-# NLTK
 import nltk
-# system, IO and logging
 import sys
 from java.io import File
 from org.apache.lucene.analysis.core import KeywordAnalyzer
@@ -78,7 +74,7 @@ def main(index_dir, input_dir):
 
             for token in tokens:
                 q = 'title: "%s" AND date: "%s" AND NOT journal: "%s" AND NOT url: "%s"' % (
-                token, date, journal_code, url)
+                    token, date, journal_code, url)
                 query = QueryParser(Version.LUCENE_CURRENT, "title", analyzer).parse(q)
                 hits = searcher.search(query, MAX_HITS)
 
