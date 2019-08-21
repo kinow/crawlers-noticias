@@ -84,7 +84,7 @@ def main(indexDir, inputDir):
         except IOError as v:
             try:
                 (code, message) = v
-            except:
+            except (TypeError, ValueError):
                 code = 0
                 message = v
             logger.error("I/O Error: " + str(message) + " (" + str(code) + ")")
