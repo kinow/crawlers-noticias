@@ -81,7 +81,7 @@ def main(indexDir, inputDir):
                 doc.add(StringField("title", entry['title'], StringField.Store.YES))
                 writer.addDocument(doc)
             json_data.close()
-        except (IOError) as v:
+        except IOError as v:
             try:
                 (code, message) = v
             except:
