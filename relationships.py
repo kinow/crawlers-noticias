@@ -47,6 +47,7 @@ def main(index_dir, input_dir):
     logger.info("Opening Lucene index [%s]..." % index_dir)
     fs_dir = SimpleFSDirectory(Paths.get(index_dir))
     analyzer = KeywordAnalyzer()
+    query_parser = QueryParser("title", analyzer)
     reader = DirectoryReader.open(fs_dir)
     searcher = IndexSearcher(reader)
 
@@ -75,10 +76,13 @@ def main(index_dir, input_dir):
             for token in tokens:
                 q = 'title: "%s" AND date: "%s" AND NOT journal: "%s" AND NOT url: "%s"' % (
                     token, date, journal_code, url)
-                query = QueryParser("title", analyzer).parse(QueryParser.escape(q))
+                try:
+                    query = query_parser.parse(q)
+                except:
+                    continue
                 hits = searcher.search(query, MAX_HITS)
 
-                logger.debug("Found %d document(s) that matched query '%s':" % (hits.totalHits, q))
+                logger.debug("Found %d document(s) that matched query '%s':" % (hits.totalHits, query))
 
                 for hit in hits.scoreDocs:
                     doc = searcher.doc(hit.doc)
