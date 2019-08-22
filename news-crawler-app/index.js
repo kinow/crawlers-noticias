@@ -11,7 +11,10 @@ var app = express();
 
 app.set('port', process.env.PORT || 3000);
 app.use(morgan('dev')); /* 'default', 'short', 'tiny', 'dev' */
-app.use(bodyParser);
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 app.use(serveStatic(path.join(__dirname, 'public')));
 app.use(json2csv.expressDecorator);
 
