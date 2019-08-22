@@ -1,6 +1,5 @@
 var express = require('express'),
 	path = require('path'),
-	http = require('http'),
 	news = require('./routes/news'),
 	json2csv = require('nice-json2csv');
 
