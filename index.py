@@ -11,7 +11,7 @@ import sys
 from java.nio.file import Paths
 from org.apache.lucene.analysis import CharArraySet
 from org.apache.lucene.analysis.standard import StandardAnalyzer
-from org.apache.lucene.document import Document, StringField
+from org.apache.lucene.document import Document, Field, TextField, StringField
 from org.apache.lucene.index import DirectoryReader
 from org.apache.lucene.index import IndexWriter
 from org.apache.lucene.index import IndexWriterConfig
@@ -72,10 +72,10 @@ def main(index_dir, input_dir):
             data = json.load(json_data)
             for entry in data:
                 doc = Document()
-                doc.add(StringField("journal", journal_code, StringField.Store.YES))
-                doc.add(StringField("url", entry['url'], StringField.Store.YES))
-                doc.add(StringField("date", entry['date'], StringField.Store.YES))
-                doc.add(StringField("title", entry['title'], StringField.Store.YES))
+                doc.add(StringField("journal", journal_code, Field.Store.YES))
+                doc.add(StringField("url", entry['url'], Field.Store.YES))
+                doc.add(StringField("date", entry['date'], Field.Store.YES))
+                doc.add(TextField("title", entry['title'], Field.Store.YES))
                 writer.addDocument(doc)
             json_data.close()
         except IOError as v:
