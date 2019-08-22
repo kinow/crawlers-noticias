@@ -1,5 +1,6 @@
 var neo4j = require('neo4j');
-var db = new neo4j.GraphDatabase('http://localhost:7474');
+const pass = process.env.PASS;
+var db = new neo4j.GraphDatabase('http://neo4j:' + pass + '@localhost:7474');
 
 exports.findAll = function(req, res) {
 	var perPage = 50;
