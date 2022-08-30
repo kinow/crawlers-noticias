@@ -6,6 +6,7 @@ import sys
 import json
 import datetime
 
+
 def main():
     """Main function."""
 	  with open('jn.json', 'r') as f:
@@ -18,6 +19,7 @@ def main():
 
   	with open('jn2.json', 'w+') as f:
 	      json.dump(new_data, f)
+
 
 if __name__ == '__main__':
     main()

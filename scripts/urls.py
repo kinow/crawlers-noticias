@@ -1,24 +1,26 @@
 #!/usr/bin/env python
-import sys  
-reload(sys)  
-sys.setdefaultencoding('iso-8859-1')
+import sys
 import json
 import datetime
 
-def main():
-	# JN date format is not right
-	f = open('sbt.json', 'r')
-	data = json.load(f)
-	new_data = []
-	for entry in data:
-		url = entry['url'].replace("http:/", 'http://')
-		entry['url'] = url
-		new_data.append(entry)
-	f.close()
+reload(sys)
+sys.setdefaultencoding('iso-8859-1')
 
-	f = open('sbt2.json', 'w+')
-	json.dump(new_data, f)
-	f.close()
+"""Fix SBT news' URL's."""
+
+
+def main():
+	  with open('sbt.json', 'r') as f:
+	      data = json.load(f)
+	      new_data = []
+	      for entry in data:
+            url = entry['url'].replace("http:/", 'http://')
+    		    entry['url'] = url
+    		    new_data.append(entry)
+
+	  with open('sbt2.json', 'w+') as f:
+	      json.dump(new_data, f)
+
 
 if __name__ == '__main__':
     main()
