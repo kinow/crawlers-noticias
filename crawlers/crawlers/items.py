@@ -9,9 +9,9 @@ import scrapy
 
 
 class MancheteItem(scrapy.Item):
-	title = scrapy.Field()
-	subtitle = scrapy.Field()
-	paragraphs = scrapy.Field()
-	url = scrapy.Field()
-	date = scrapy.Field()
+      title = scrapy.Field()
+      subtitle = scrapy.Field()
+      paragraphs = scrapy.Field()
+      url = scrapy.Field()
+      date = scrapy.Field()
 

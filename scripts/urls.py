@@ -10,16 +10,16 @@ sys.setdefaultencoding('iso-8859-1')
 
 
 def main():
-	  with open('sbt.json', 'r') as f:
-	      data = json.load(f)
-	      new_data = []
-	      for entry in data:
+      with open('sbt.json', 'r') as f:
+          data = json.load(f)
+          new_data = []
+          for entry in data:
             url = entry['url'].replace("http:/", 'http://')
-    		    entry['url'] = url
-    		    new_data.append(entry)
+                entry['url'] = url
+                new_data.append(entry)
 
-	  with open('sbt2.json', 'w+') as f:
-	      json.dump(new_data, f)
+      with open('sbt2.json', 'w+') as f:
+          json.dump(new_data, f)
 
 
 if __name__ == '__main__':

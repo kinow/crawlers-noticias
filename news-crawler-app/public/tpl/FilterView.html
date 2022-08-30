@@ -3,111 +3,111 @@
 <div id="filter" class="col-xs-12>">
 
 <form class="form-inline" method="get" action="/#news" id="filter_form" onsubmit="submit_form(this); return false;">
-	<div class="form-group">
-		<label for="journal1">Jornal 1</label>
-		<select class="form-control" id="journal1" name="journal1">
-		  <option></option>
-		  <% if (journal1 === "jn") { %>
-		  <option selected="selected">jn</option>
-		  <% } else { %>
-		  <option>jn</option>
-		  <% } %>
-		  <% if (journal1 === "sbt") { %>
-		  <option selected="selected">sbt</option>
-		  <% } else { %>
-		  <option>sbt</option>
-		  <% } %>
-		  <% if (journal1 === "r7") { %>
-		  <option selected="selected">r7</option>
-		  <% } else { %>
-		  <option>r7</option>
-		  <% } %>
-		  <% if (journal1 === "band") { %>
-		  <option selected="selected">band</option>
-		  <% } else { %>
-		  <option>band</option>
-		  <% } %>
-		  <% if (journal1 === "vcnog1") { %>
-		  <option selected="selected">vcnog1</option>
-		  <% } else { %>
-		  <option>vcnog1</option>
-		  <% } %>
-		  <% if (journal1 === "vcreporter") { %>
-		  <option selected="selected">vcreporter</option>
-		  <% } else { %>
-		  <option>vcreporter</option>
-		  <% } %>
-		  <% if (journal1 === "eureporter") { %>
-		  <option selected="selected">eureporter</option>
-		  <% } else { %>
-		  <option>eureporter</option>
-		  <% } %>
-		</select>
-	</div>
-	<div class='form-group'>
-					<label for='date'>Data</label>
-			<div class="input-group date">
-					<% if (date) { %>
-					<input type="text"
-													name="date" class="form-control" data-provide="datepicker"
-													data-date-format="yyyy-mm-dd" data-date-orientation="top right"
-													data-date-start-date="2014-12-01" data-date-end-date="2015-02-29"
-													data-date-autoclose="true" value="<%= date %>"
-													id="date" placeholder="YYYY-MM-DD">
-					<% } else { %>
-					<input type="text"
-													name="date" class="form-control" data-provide="datepicker"
-													data-date-format="yyyy-mm-dd" data-date-orientation="top right"
-													data-date-start-date="2014-12-01" data-date-end-date="2015-02-28"
-													data-date-autoclose="true" value="2014-12-01"
-													id="date" placeholder="YYYY-MM-DD">
-					<% } %>
-					<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-			</div>
-	</div>
+    <div class="form-group">
+        <label for="journal1">Jornal 1</label>
+        <select class="form-control" id="journal1" name="journal1">
+          <option></option>
+          <% if (journal1 === "jn") { %>
+          <option selected="selected">jn</option>
+          <% } else { %>
+          <option>jn</option>
+          <% } %>
+          <% if (journal1 === "sbt") { %>
+          <option selected="selected">sbt</option>
+          <% } else { %>
+          <option>sbt</option>
+          <% } %>
+          <% if (journal1 === "r7") { %>
+          <option selected="selected">r7</option>
+          <% } else { %>
+          <option>r7</option>
+          <% } %>
+          <% if (journal1 === "band") { %>
+          <option selected="selected">band</option>
+          <% } else { %>
+          <option>band</option>
+          <% } %>
+          <% if (journal1 === "vcnog1") { %>
+          <option selected="selected">vcnog1</option>
+          <% } else { %>
+          <option>vcnog1</option>
+          <% } %>
+          <% if (journal1 === "vcreporter") { %>
+          <option selected="selected">vcreporter</option>
+          <% } else { %>
+          <option>vcreporter</option>
+          <% } %>
+          <% if (journal1 === "eureporter") { %>
+          <option selected="selected">eureporter</option>
+          <% } else { %>
+          <option>eureporter</option>
+          <% } %>
+        </select>
+    </div>
+    <div class='form-group'>
+                    <label for='date'>Data</label>
+            <div class="input-group date">
+                    <% if (date) { %>
+                    <input type="text"
+                                                    name="date" class="form-control" data-provide="datepicker"
+                                                    data-date-format="yyyy-mm-dd" data-date-orientation="top right"
+                                                    data-date-start-date="2014-12-01" data-date-end-date="2015-02-29"
+                                                    data-date-autoclose="true" value="<%= date %>"
+                                                    id="date" placeholder="YYYY-MM-DD">
+                    <% } else { %>
+                    <input type="text"
+                                                    name="date" class="form-control" data-provide="datepicker"
+                                                    data-date-format="yyyy-mm-dd" data-date-orientation="top right"
+                                                    data-date-start-date="2014-12-01" data-date-end-date="2015-02-28"
+                                                    data-date-autoclose="true" value="2014-12-01"
+                                                    id="date" placeholder="YYYY-MM-DD">
+                    <% } %>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            </div>
+    </div>
 
-	<div class="form-group">
-		<label for="journal2">Jornal 2</label>
-		<select class="form-control" id="journal2" name="journal2">
-		  <option></option>
-		  <% if (journal2 === "jn") { %>
-		  <option selected="selected">jn</option>
-		  <% } else { %>
-		  <option>jn</option>
-		  <% } %>
-		  <% if (journal2 === "sbt") { %>
-		  <option selected="selected">sbt</option>
-		  <% } else { %>
-		  <option>sbt</option>
-		  <% } %>
-		  <% if (journal2 === "r7") { %>
-		  <option selected="selected">r7</option>
-		  <% } else { %>
-		  <option>r7</option>
-		  <% } %>
-		  <% if (journal2 === "band") { %>
-		  <option selected="selected">band</option>
-		  <% } else { %>
-		  <option>band</option>
-		  <% } %>
-		  <% if (journal2 === "vcnog1") { %>
-		  <option selected="selected">vcnog1</option>
-		  <% } else { %>
-		  <option>vcnog1</option>
-		  <% } %>
-		  <% if (journal2 === "vcreporter") { %>
-		  <option selected="selected">vcreporter</option>
-		  <% } else { %>
-		  <option>vcreporter</option>
-		  <% } %>
-		  <% if (journal2 === "eureporter") { %>
-		  <option selected="selected">eureporter</option>
-		  <% } else { %>
-		  <option>eureporter</option>
-		  <% } %>
-		</select>
-	</div>
-	<button type="submit" class="btn btn-primary">Filtrar</button>
+    <div class="form-group">
+        <label for="journal2">Jornal 2</label>
+        <select class="form-control" id="journal2" name="journal2">
+          <option></option>
+          <% if (journal2 === "jn") { %>
+          <option selected="selected">jn</option>
+          <% } else { %>
+          <option>jn</option>
+          <% } %>
+          <% if (journal2 === "sbt") { %>
+          <option selected="selected">sbt</option>
+          <% } else { %>
+          <option>sbt</option>
+          <% } %>
+          <% if (journal2 === "r7") { %>
+          <option selected="selected">r7</option>
+          <% } else { %>
+          <option>r7</option>
+          <% } %>
+          <% if (journal2 === "band") { %>
+          <option selected="selected">band</option>
+          <% } else { %>
+          <option>band</option>
+          <% } %>
+          <% if (journal2 === "vcnog1") { %>
+          <option selected="selected">vcnog1</option>
+          <% } else { %>
+          <option>vcnog1</option>
+          <% } %>
+          <% if (journal2 === "vcreporter") { %>
+          <option selected="selected">vcreporter</option>
+          <% } else { %>
+          <option>vcreporter</option>
+          <% } %>
+          <% if (journal2 === "eureporter") { %>
+          <option selected="selected">eureporter</option>
+          <% } else { %>
+          <option>eureporter</option>
+          <% } %>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Filtrar</button>
 </form>
 <hr/>
 
@@ -117,10 +117,10 @@
 
 <script type="text/javascript">
 var submit_form = function(form) {
-	var action = $(form).attr('action');
-	var params = $(form).serialize();
-	var goal = action + '?' + params;
-	window.location.href = goal;
-	return false;
+    var action = $(form).attr('action');
+    var params = $(form).serialize();
+    var goal = action + '?' + params;
+    window.location.href = goal;
+    return false;
 };
 </script>

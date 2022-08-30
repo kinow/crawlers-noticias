@@ -1,7 +1,7 @@
 var express = require('express'),
-	path = require('path'),
-	news = require('./routes/news'),
-	json2csv = require('nice-json2csv');
+    path = require('path'),
+    news = require('./routes/news'),
+    json2csv = require('nice-json2csv');
 
 var bodyParser = require('body-parser')
 var morgan = require('morgan')
@@ -28,5 +28,5 @@ app.get('/stats/4', news.stats4);
 app.get('/stats/5', news.stats5);
 
 app.listen(app.get('port'), function () {
-	console.log("Express server listening on port " + app.get('port'));
+    console.log("Express server listening on port " + app.get('port'));
 });

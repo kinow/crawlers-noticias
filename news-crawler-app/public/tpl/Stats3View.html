@@ -10,11 +10,11 @@
 
     var dataset = [];
     <% for (entry in list) { %>
-    	var o = new Object();
-    	o.label = '<%= list[entry].attributes['n1.journal'] %>';
-    	o.count = <%= list[entry].attributes['total'] %>;
-		dataset.push(o);
-	<% } %>
+        var o = new Object();
+        o.label = '<%= list[entry].attributes['n1.journal'] %>';
+        o.count = <%= list[entry].attributes['total'] %>;
+        dataset.push(o);
+    <% } %>
 
     var width = 460;
     var height = 460;

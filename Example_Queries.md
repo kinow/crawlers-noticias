@@ -14,8 +14,8 @@ RETURN
     n2.title,
     n1.date 
 ORDER BY
-	n2.date,
-	n2.journal DESC 
+    n2.date,
+    n2.journal DESC 
 LIMIT 50
 ```
 

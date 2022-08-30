@@ -9,7 +9,7 @@ import datetime
 
 def main():
     """Main function."""
-	  with open('jn.json', 'r') as f:
+      with open('jn.json', 'r') as f:
         data = json.load(f)
         new_data = []
         for entry in data:
@@ -17,8 +17,8 @@ def main():
             entry['date'] = str(date)
             new_data.append(entry)
 
-  	with open('jn2.json', 'w+') as f:
-	      json.dump(new_data, f)
+      with open('jn2.json', 'w+') as f:
+          json.dump(new_data, f)
 
 
 if __name__ == '__main__':
