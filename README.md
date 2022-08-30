@@ -54,7 +54,7 @@ OPTIONAL MATCH (n)-[r]-()
 DELETE n,r
 ```
 
-O script `index.sh` produz um arquivo *CSV* `all.csv`, que possui o grafo com nós e atributos. é necessário
+O script `index.sh` produz um arquivo *CSV* `all.csv`, que possui o grafo com nós e atributos. É necessário
 também criar um índice na URL, caso contrário as queries demorarão vários minutos.
 
 (Primeiro, remova a configuração do Neo4j que impede o carregamento de CSVs de qualquer diretório)

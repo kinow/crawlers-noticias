@@ -202,8 +202,7 @@ window.Stats5View = Backbone.View.extend({
     this.models.map(function (entry) {
       var journal = entry.attributes.journal;
       var date = entry.attributes.date;
-      var total = entry.attributes.total;
-      dict[date][journal].total = total;
+      dict[date][journal].total = entry.attributes.total;
     });
     $(this.el).html(this.template({
       journals: this.journals,

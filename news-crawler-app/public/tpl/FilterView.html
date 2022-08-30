@@ -119,8 +119,7 @@
 var submit_form = function(form) {
     var action = $(form).attr('action');
     var params = $(form).serialize();
-    var goal = action + '?' + params;
-    window.location.href = goal;
+    window.location.href = action + '?' + params;
     return false;
 };
 </script>
