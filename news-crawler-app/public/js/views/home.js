@@ -51,7 +51,7 @@ var createExcelExportLink = function(journal1, date, journal2) {
     }
     if (filters.length > 0) {
         for (var i = 0; i < filters.length ; i++) {
-            exportLink = exportLink + ((i == 0) ? '?' : '&')  + filters[i];
+            exportLink = exportLink + ((i === 0) ? '?' : '&')  + filters[i];
         }
     }
     return exportLink;
