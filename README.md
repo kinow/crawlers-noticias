@@ -9,13 +9,26 @@ jornal nacional, etc.).
 
 ## Requisitos
 
-- Python 2.x
+- Python 3.x
 - PyLucene (http://bendemott.blogspot.co.nz/2013/11/installing-pylucene-4-451.html)
   - JDK 1.7
   - python-dev
   - jcc (shipped with PyLucene)
 - NLTK
 - Neo4J
+
+```bash
+python -m venv venv
+source venv/bin/activate
+(venv) export JCC_JDK=/usr/lib/jvm/java-8-oracle
+(venv) svn co https://svn.apache.org/repos/asf/lucene/pylucene/trunk/jcc jcc
+(venv) cd jcc
+(venv) python setup.py build
+(venv) python setup.py install
+(venv) cd ../
+(venv) pip install -U pip
+(venv) pip install -r requirements.txt
+```
 
 ## Indexação
 
